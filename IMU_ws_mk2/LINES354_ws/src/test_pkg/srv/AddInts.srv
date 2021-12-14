@@ -1,0 +1,6 @@
+# 客户端请求时发送的两个数字（client：request）
+int32 num1
+int32 num2
+---
+# 服务器响应发送的数据（server：respond）
+int32 sum

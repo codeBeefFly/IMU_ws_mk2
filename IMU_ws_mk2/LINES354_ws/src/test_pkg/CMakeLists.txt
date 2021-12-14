@@ -67,6 +67,13 @@ add_message_files(
 #   Service2.srv
 # )
 
+add_service_files(
+    FILES
+    AddInts.srv
+)
+
+message(STATUS "**** FILES: ${FILES}")
+
 ## Generate actions in the 'action' folder
 # add_action_files(
 #   FILES
@@ -84,6 +91,8 @@ generate_messages(
     DEPENDENCIES
     std_msgs  # 生成消息时依赖于 std_msgs
 )
+
+message(STATUS "**** DEPENDENCIES: ${DEPENDENCIES}")
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -154,6 +163,7 @@ add_executable(demo_01_topic_listener_node
         src/demo_01_topic_listener_node.cpp
         )
 
+
 add_executable(demo_02_topic_talker_node
         src/demo_02_topic_talker_node.cpp
         )
@@ -161,6 +171,16 @@ add_executable(demo_02_topic_talker_node
 add_executable(demo_02_topic_listener_node
         src/demo_02_topic_listener_node.cpp
         )
+
+
+add_executable(demo_03_service_server_node
+        src/demo_03_service_server_node.cpp
+        )
+
+add_executable(demo_03_service_client_node
+        src/demo_03_service_client_node.cpp
+        )
+
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -179,6 +199,14 @@ add_dependencies(demo_02_topic_listener_node
         ${PROJECT_NAME}_generate_messages_cpp
         )
 
+add_dependencies(demo_03_service_server_node
+        ${PROJECT_NAME}_gencpp
+        )
+
+add_dependencies(demo_03_service_client_node
+        ${PROJECT_NAME}_gencpp
+        )
+
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
@@ -191,6 +219,7 @@ target_link_libraries(demo_01_topic_listener_node
         ${catkin_LIBRARIES}
         )
 
+
 target_link_libraries(demo_02_topic_talker_node
         ${catkin_LIBRARIES}
         )
@@ -198,6 +227,16 @@ target_link_libraries(demo_02_topic_talker_node
 target_link_libraries(demo_02_topic_listener_node
         ${catkin_LIBRARIES}
         )
+
+
+target_link_libraries(demo_03_service_server_node
+        ${catkin_LIBRARIES}
+        )
+
+target_link_libraries(demo_03_service_client_node
+        ${catkin_LIBRARIES}
+        )
+
 
 #############
 ## Install ##
