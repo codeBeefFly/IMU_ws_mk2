@@ -154,6 +154,14 @@ add_executable(demo_01_topic_listener_node
         src/demo_01_topic_listener_node.cpp
         )
 
+add_executable(demo_02_topic_talker_node
+        src/demo_02_topic_talker_node.cpp
+        )
+
+add_executable(demo_02_topic_listener_node
+        src/demo_02_topic_listener_node.cpp
+        )
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -163,6 +171,13 @@ add_executable(demo_01_topic_listener_node
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(demo_02_topic_talker_node
+        ${PROJECT_NAME}_generate_messages_cpp
+        )
+
+add_dependencies(demo_02_topic_listener_node
+        ${PROJECT_NAME}_generate_messages_cpp
+        )
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
@@ -173,6 +188,14 @@ target_link_libraries(demo_01_topic_talker_node
         )
 
 target_link_libraries(demo_01_topic_listener_node
+        ${catkin_LIBRARIES}
+        )
+
+target_link_libraries(demo_02_topic_talker_node
+        ${catkin_LIBRARIES}
+        )
+
+target_link_libraries(demo_02_topic_listener_node
         ${catkin_LIBRARIES}
         )
 
