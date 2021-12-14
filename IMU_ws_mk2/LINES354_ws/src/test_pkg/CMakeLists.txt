@@ -182,6 +182,17 @@ add_executable(demo_03_service_client_node
         )
 
 
+add_executable(demo_04_parameterServer_add_edit_node
+        src/demo_04_parameterServer_add_edit_node.cpp
+        )
+
+add_executable(demo_04_parameterServer_find_node
+        src/demo_04_parameterServer_find_node.cpp
+        )
+
+add_executable(demo_04_parameterServer_delete_node
+        src/demo_04_parameterServer_delete_node.cpp
+        )
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -237,6 +248,18 @@ target_link_libraries(demo_03_service_client_node
         ${catkin_LIBRARIES}
         )
 
+
+target_link_libraries(demo_04_parameterServer_add_edit_node
+        ${catkin_LIBRARIES}
+        )
+
+target_link_libraries(demo_04_parameterServer_find_node
+        ${catkin_LIBRARIES}
+        )
+
+target_link_libraries(demo_04_parameterServer_delete_node
+        ${catkin_LIBRARIES}
+        )
 
 #############
 ## Install ##
