@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(test_pkg)
+project(lines354_pkg)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -11,7 +11,6 @@ find_package(catkin REQUIRED COMPONENTS
         roscpp
         rospy
         std_msgs
-        message_generation  # 需要加入 message_generation,必须有 std_msgs
         )
 
 ## System dependencies are found with CMake's conventions
@@ -54,25 +53,12 @@ find_package(catkin REQUIRED COMPONENTS
 #   Message2.msg
 # )
 
-## 配置 msg 源文件
-add_message_files(
-        FILES
-        Person.msg
-)
-
 ## Generate services in the 'srv' folder
 # add_service_files(
 #   FILES
 #   Service1.srv
 #   Service2.srv
 # )
-
-add_service_files(
-        FILES
-        AddInts.srv
-)
-
-message(STATUS "**** FILES: ${FILES}")
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -86,13 +72,6 @@ message(STATUS "**** FILES: ${FILES}")
 #   DEPENDENCIES
 #   std_msgs
 # )
-
-generate_messages(
-        DEPENDENCIES
-        std_msgs  # 生成消息时依赖于 std_msgs
-)
-
-message(STATUS "**** DEPENDENCIES: ${DEPENDENCIES}")
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -125,8 +104,8 @@ message(STATUS "**** DEPENDENCIES: ${DEPENDENCIES}")
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
         #  INCLUDE_DIRS include
-        #  LIBRARIES test_pkg
-        CATKIN_DEPENDS roscpp rospy std_msgs message_runtime  #执行时依赖
+        #  LIBRARIES lines354_pkg
+        #  CATKIN_DEPENDS roscpp rospy std_msgs
         #  DEPENDS system_lib
 )
 
@@ -137,24 +116,14 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-        include
+        # include
         ${catkin_INCLUDE_DIRS}
-        )
-
-message(STATUS "**** include: ${include}")
-message(STATUS "**** catkin_INCLUDE_DIRS: ${catkin_INCLUDE_DIRS}")
-message(STATUS "**** INCLUDE_DIRECTORIES: ${INCLUDE_DIRECTORIES}")
+)
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/test_pkg.cpp
+#   src/${PROJECT_NAME}/lines354_pkg.cpp
 # )
-
-## demo_05: haha
-add_library(haha_head
-        include/test_pkg/haha.h  # header for declaration
-        src/haha.cpp             # source for definition
-        )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -164,57 +133,15 @@ add_library(haha_head
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/test_pkg_node.cpp)
-
-## demo_01: ros topic std_msgs
-add_executable(demo_01_topic_talker_node
-        src/demo_01_topic_talker_node.cpp
+# add_executable(${PROJECT_NAME}_node src/lines354_pkg_node.cpp)
+add_executable(imu_test_00_node
+        test/imu_test_00.cpp
         )
 
-add_executable(demo_01_topic_listener_node
-        src/demo_01_topic_listener_node.cpp
+add_executable(imu_test_01_node
+        test/imu_test_01.cpp
         )
 
-## demo_02: ros topic self-defined msgs
-add_executable(demo_02_topic_talker_node
-        src/demo_02_topic_talker_node.cpp
-        )
-
-add_executable(demo_02_topic_listener_node
-        src/demo_02_topic_listener_node.cpp
-        )
-
-## demo_03: ros service
-add_executable(demo_03_service_server_node
-        src/demo_03_service_server_node.cpp
-        )
-
-add_executable(demo_03_service_client_node
-        src/demo_03_service_client_node.cpp
-        )
-
-## demo_04: ros parameterServer
-add_executable(demo_04_parameterServer_add_edit_node
-        src/demo_04_parameterServer_add_edit_node.cpp
-        )
-
-add_executable(demo_04_parameterServer_find_node
-        src/demo_04_parameterServer_find_node.cpp
-        )
-
-add_executable(demo_04_parameterServer_delete_node
-        src/demo_04_parameterServer_delete_node.cpp
-        )
-
-## demo_05: hello
-add_executable(demo_05_hello
-        src/demo_05_hello.cpp
-        )
-
-## demo_05: use haha
-add_executable(demo_05_use_haha
-        src/demo_05_use_haha.cpp
-        )
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -226,100 +153,16 @@ add_executable(demo_05_use_haha
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-## demo_02: add self-defined msgs for executable
-add_dependencies(demo_02_topic_talker_node
-        ${PROJECT_NAME}_generate_messages_cpp
-        )
-
-add_dependencies(demo_02_topic_listener_node
-        ${PROJECT_NAME}_generate_messages_cpp
-        )
-
-## demo_03: add self-defined srv for executable
-add_dependencies(demo_03_service_server_node
-        ${PROJECT_NAME}_gencpp
-        )
-
-add_dependencies(demo_03_service_client_node
-        ${PROJECT_NAME}_gencpp
-        )
-
-## demo_05: hello
-add_dependencies(demo_05_hello
-        ${${PROJECT_NAME}_EXPORTED_TARGETS}
-        ${catkin_EXPORTED_TARGETS}
-        )
-
-## demo_05: haha_head
-add_dependencies(haha_head
-        ${${PROJECT_NAME}_EXPORTED_TARGETS}
-        ${catkin_EXPORTED_TARGETS}
-        )
-
-## demo_05: use haha
-add_dependencies(demo_05_use_haha
-        ${${PROJECT_NAME}_EXPORTED_TARGETS}
-        ${catkin_EXPORTED_TARGETS}
-        )
-
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
 
-## demo_01: ros topic std_msgs
-target_link_libraries(demo_01_topic_talker_node
+target_link_libraries(imu_test_00_node
         ${catkin_LIBRARIES}
         )
 
-target_link_libraries(demo_01_topic_listener_node
-        ${catkin_LIBRARIES}
-        )
-
-## demo_02: ros topic self-defined msgs
-target_link_libraries(demo_02_topic_talker_node
-        ${catkin_LIBRARIES}
-        )
-
-target_link_libraries(demo_02_topic_listener_node
-        ${catkin_LIBRARIES}
-        )
-
-## demo_03: ros service
-target_link_libraries(demo_03_service_server_node
-        ${catkin_LIBRARIES}
-        )
-
-target_link_libraries(demo_03_service_client_node
-        ${catkin_LIBRARIES}
-        )
-
-## demo_04: parameterServer
-target_link_libraries(demo_04_parameterServer_add_edit_node
-        ${catkin_LIBRARIES}
-        )
-
-target_link_libraries(demo_04_parameterServer_find_node
-        ${catkin_LIBRARIES}
-        )
-
-target_link_libraries(demo_04_parameterServer_delete_node
-        ${catkin_LIBRARIES}
-        )
-
-## demo_05: hello
-target_link_libraries(demo_05_hello
-        ${catkin_LIBRARIES}
-        )
-
-## demo_05: haha_head
-target_link_libraries(haha_head
-        ${catkin_LIBRARIES}
-        )
-
-## demo_05: use haha
-target_link_libraries(demo_05_use_haha
-        haha_head
+target_link_libraries(imu_test_01_node
         ${catkin_LIBRARIES}
         )
 
@@ -363,14 +206,14 @@ target_link_libraries(demo_05_use_haha
 #   # myfile1
 #   # myfile2
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-# )
+# )-DCMAKE_BUILD_TYPE=debug
 
 #############
 ## Testing ##
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_test_pkg.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_lines354_pkg.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
