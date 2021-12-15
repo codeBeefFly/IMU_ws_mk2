@@ -137,14 +137,22 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
-  ${catkin_INCLUDE_DIRS}
+        include
+        ${catkin_INCLUDE_DIRS}
 )
+
+message(STATUS "**** include: ${include}")
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
 #   src/${PROJECT_NAME}/test_pkg.cpp
 # )
+
+## demo_05: haha
+add_library(haha_head
+        include/test_pkg/haha.h  # header for declaration
+        src/haha.cpp             # source for definition
+        )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -155,6 +163,8 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/test_pkg_node.cpp)
+
+## demo_01: ros topic std_msgs
 add_executable(demo_01_topic_talker_node
         src/demo_01_topic_talker_node.cpp
         )
@@ -163,7 +173,7 @@ add_executable(demo_01_topic_listener_node
         src/demo_01_topic_listener_node.cpp
         )
 
-
+## demo_02: ros topic self-defined msgs
 add_executable(demo_02_topic_talker_node
         src/demo_02_topic_talker_node.cpp
         )
@@ -172,7 +182,7 @@ add_executable(demo_02_topic_listener_node
         src/demo_02_topic_listener_node.cpp
         )
 
-
+## demo_03: ros service
 add_executable(demo_03_service_server_node
         src/demo_03_service_server_node.cpp
         )
@@ -181,7 +191,7 @@ add_executable(demo_03_service_client_node
         src/demo_03_service_client_node.cpp
         )
 
-
+## demo_04: ros parameterServer
 add_executable(demo_04_parameterServer_add_edit_node
         src/demo_04_parameterServer_add_edit_node.cpp
         )
@@ -193,6 +203,17 @@ add_executable(demo_04_parameterServer_find_node
 add_executable(demo_04_parameterServer_delete_node
         src/demo_04_parameterServer_delete_node.cpp
         )
+
+## demo_05: hello
+add_executable(demo_05_hello
+        src/demo_05_hello.cpp
+        )
+
+## demo_05: use haha
+add_executable(demo_05_use_haha
+        src/demo_05_use_haha.cpp
+        )
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -202,6 +223,8 @@ add_executable(demo_04_parameterServer_delete_node
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+## demo_02: add self-defined msgs for executable
 add_dependencies(demo_02_topic_talker_node
         ${PROJECT_NAME}_generate_messages_cpp
         )
@@ -210,6 +233,7 @@ add_dependencies(demo_02_topic_listener_node
         ${PROJECT_NAME}_generate_messages_cpp
         )
 
+## demo_03: add self-defined srv for executable
 add_dependencies(demo_03_service_server_node
         ${PROJECT_NAME}_gencpp
         )
@@ -218,10 +242,30 @@ add_dependencies(demo_03_service_client_node
         ${PROJECT_NAME}_gencpp
         )
 
+## demo_05: hello
+add_dependencies(demo_05_hello
+        ${${PROJECT_NAME}_EXPORTED_TARGETS}
+        ${catkin_EXPORTED_TARGETS}
+        )
+
+## demo_05: haha_head
+add_dependencies(haha_head
+        ${${PROJECT_NAME}_EXPORTED_TARGETS}
+        ${catkin_EXPORTED_TARGETS}
+        )
+
+## demo_05: use haha
+add_dependencies(demo_05_use_haha
+        ${${PROJECT_NAME}_EXPORTED_TARGETS}
+        ${catkin_EXPORTED_TARGETS}
+        )
+
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
+
+## demo_01: ros topic std_msgs
 target_link_libraries(demo_01_topic_talker_node
         ${catkin_LIBRARIES}
         )
@@ -230,7 +274,7 @@ target_link_libraries(demo_01_topic_listener_node
         ${catkin_LIBRARIES}
         )
 
-
+## demo_02: ros topic self-defined msgs
 target_link_libraries(demo_02_topic_talker_node
         ${catkin_LIBRARIES}
         )
@@ -239,7 +283,7 @@ target_link_libraries(demo_02_topic_listener_node
         ${catkin_LIBRARIES}
         )
 
-
+## demo_03: ros service
 target_link_libraries(demo_03_service_server_node
         ${catkin_LIBRARIES}
         )
@@ -248,7 +292,7 @@ target_link_libraries(demo_03_service_client_node
         ${catkin_LIBRARIES}
         )
 
-
+## demo_04: parameterServer
 target_link_libraries(demo_04_parameterServer_add_edit_node
         ${catkin_LIBRARIES}
         )
@@ -258,6 +302,22 @@ target_link_libraries(demo_04_parameterServer_find_node
         )
 
 target_link_libraries(demo_04_parameterServer_delete_node
+        ${catkin_LIBRARIES}
+        )
+
+## demo_05: hello
+target_link_libraries(demo_05_hello
+        ${catkin_LIBRARIES}
+        )
+
+## demo_05: haha_head
+target_link_libraries(haha_head
+        ${catkin_LIBRARIES}
+        )
+
+## demo_05: use haha
+target_link_libraries(demo_05_use_haha
+        haha_head
         ${catkin_LIBRARIES}
         )
 
