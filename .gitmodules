@@ -1,0 +1,3 @@
+[submodule "IMU_ws_mk2/IMU_ws/IMU_ws/src"]
+	path = IMU_ws_mk2/IMU_ws/IMU_ws/src
+	url = git@github.com:codeBeefFly/IMU_ws_mk2.git
