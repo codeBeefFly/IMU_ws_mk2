@@ -107,7 +107,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
         #  INCLUDE_DIRS include
         #  LIBRARIES lines354_pkg
-        #  CATKIN_DEPENDS roscpp rospy std_msgs
+        CATKIN_DEPENDS roscpp rospy std_msgs
         #  DEPENDS system_lib
 )
 
@@ -127,6 +127,18 @@ include_directories(
 #   src/${PROJECT_NAME}/lines354_pkg.cpp
 # )
 
+## LinesTechTestHead
+add_library(linesTechTestHead
+        include/lines354_pkg/linesTechTest.h  # header for declaration
+        src/linesTechTest.cpp                 # source for definition
+        )
+
+## LinesTechTestImu
+add_library(linesTechImuHead
+        include/lines354_pkg/linesTechImu.h   # header for declaration
+        src/linesTechImu.cpp                  # source for definition
+        )
+
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
@@ -144,6 +156,9 @@ add_executable(imu_test_01_node
         test/imu_test_01.cpp
         )
 
+## imu_test_linesTech
+add_executable(ImuTestLinesTech
+        test/imu_test_linesTech.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -155,6 +170,24 @@ add_executable(imu_test_01_node
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
+## linesTechTestHead
+add_dependencies(linesTechTestHead
+        ${${PROJECT_NAME}_EXPORTED_TARGETS}
+        ${catkin_EXPORTED_TARGETS}
+        )
+
+## linesTechImuHead
+add_dependencies(linesTechImuHead
+        ${${PROJECT_NAME}_EXPORTED_TARGETS}
+        ${catkin_EXPORTED_TARGETS}
+        )
+
+## imu_test_linesTech
+add_dependencies(ImuTestLinesTech
+        ${${PROJECT_NAME}_EXPORTED_TARGETS}
+        ${catkin_EXPORTED_TARGETS}
+        )
+
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
@@ -165,6 +198,22 @@ target_link_libraries(imu_test_00_node
         )
 
 target_link_libraries(imu_test_01_node
+        ${catkin_LIBRARIES}
+        )
+
+## linesTechTestHead
+target_link_libraries(linesTechTestHead
+        ${catkin_LIBRARIES}
+        )
+
+## linesTechImuHead
+target_link_libraries(linesTechImuHead
+        ${catkin_LIBRARIES}
+        )
+
+## imu_test_linesTech
+target_link_libraries(ImuTestLinesTech
+        linesTechImuHead
         ${catkin_LIBRARIES}
         )
 
