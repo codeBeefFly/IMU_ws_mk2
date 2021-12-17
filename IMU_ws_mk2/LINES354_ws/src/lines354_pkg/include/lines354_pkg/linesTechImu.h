@@ -90,7 +90,7 @@ public:
      * @param data valid 23 bytes raw data
      * @return true if decode complete, false otherwise
      */
-    bool decodeRawData(const unsigned char data[23]);
+    void decodeRawData(const unsigned char data[23]);
 
 private:
 
@@ -101,7 +101,6 @@ private:
     unsigned char valid_data[VALID_DATA_SIZE];
     double GYR[DATA_LENGTH];
     double ACC[DATA_LENGTH];
-
     double RPY[DATA_LENGTH];  // 0-R, 1-P, 2-Y
     double TP;
     int total_count = 0;

@@ -4,8 +4,11 @@
 
 //#include "ros/ros.h"
 #include "lines354_pkg/linesTechImu.h"
+#include "string.h"
 
 namespace LinesTech {
+
+//////////////////////////////////////////
 
 void ImuDriver::dummy() {
     ROS_INFO("dummy ros...");
@@ -17,7 +20,7 @@ bool ImuDriver::runImu() {
 
     ros::Publisher imu_pub = nh.advertise<sensor_msgs::Imu>("imu_msg", 100);
 
-    if(!serialInit())   return false;
+    if (!serialInit()) return false;
 
     ros::Rate loop_rate(100);
     while (ros::ok()) {
@@ -50,70 +53,57 @@ bool ImuDriver::serialInit() {
         return false;
     }
 
+    // todo: find valid head，感觉不需要这个逻辑
+//    readFromSerialPort();
+
     return true;
 }
 
 void ImuDriver::readFromSerialPort() {
-    ser.read(r_buffer, READ_BUFFER_SIZE);
-    processRawData(r_buffer);
+
+    ser.read(r_buffer, READ_BUFFER_SIZE);   // todo: 可能读的是 115 个 0
+    bool rev = processRawData(r_buffer);
+    if (!rev) ROS_ERROR("Process raw data failed!...");
 }
 
 bool ImuDriver::processRawData(unsigned char *tmpBuffer) {
 
-    // store valid 23 bytes data, and calculate checksum
+    // store valid 23 bytes data from 115 bytes buffer, and calculate checksum
     for (int i = 0; i < READ_BUFFER_SIZE - 23; ++i) {
 
         if (tmpBuffer[i] != DATA_FrameHead_1 || tmpBuffer[i + 1] != DATA_FrameHead_2)
             continue;
+
+        // todo: 如果 115-23 bytes 中不包含 head1，head2，return false, read next buffer (break or return?)
+        if (i == 92) {   // end of 115 buffer
+            ROS_WARN("DATA_FrameHead_1&2 not found!...");
+            return false;
+        }
 
         // store one imu data array of 23 bytes
         for (int j = 0; j < VALID_DATA_SIZE; ++j) {
             valid_data[j] = tmpBuffer[i + j];
         }
 
+        ROS_DEBUG("len. of valid_data: %d", int(sizeof(valid_data) / sizeof(valid_data[0])));
+
         // validate checksum, if failed, then re-loop
         bool rev = validateChecksum(valid_data);
-        if (rev)    break;
+        if (!rev) {
+            ROS_WARN("Checksum validation failed!...");
+            return false;
+        }
     }
     ROS_DEBUG("loss: %d, total: %d, loss rate: %f%%", loss_count, total_count,
               (float(loss_count) / float(total_count)) * 100);
 
-    // decode valid raw data
-    if (!decodeRawData(valid_data))
-        ROS_ERROR("Data decoding failed!...");
+    // decode valid raw data, double check data validity.
+    decodeRawData(valid_data);
 
-    return false;
+    return true;
 }
 
-bool ImuDriver::validateChecksum(unsigned char *data) {
-    unsigned char checkSum = valid_data[22];
-    unsigned char sum = 0;
-    unsigned char rev_sum = 0;
-
-    for (int k = 2; k < VALID_DATA_SIZE - 1; ++k)
-        sum = sum + valid_data[k];
-    rev_sum = ~sum;
-    total_count++;
-
-    if (rev_sum == checkSum) {
-        ROS_INFO("imu data validated.");
-        return true;
-    } else {
-        ROS_INFO("imu data invalid. re-loop.");
-        loss_count++;
-        return false;
-    }
-}
-
-bool ImuDriver::decodeRawData(const unsigned char *data) {
-
-    int len1 = sizeof(data);
-    int len2 = sizeof(data[0]);
-    int len = len1 / len2;
-    if (len != 23) {
-        ROS_ERROR("Valid data length less than 23 bytes!...");
-        return false;
-    }
+void ImuDriver::decodeRawData(const unsigned char *data) {
 
     auto *sensors = new double[10];  // acc, gyo, rpy, T
 
@@ -160,7 +150,6 @@ bool ImuDriver::decodeRawData(const unsigned char *data) {
     displayDecodeData(RPY, "RPY");
     displayTempData(TP, "TEMPERATURE");
 
-    return true;
 }
 
 void ImuDriver::displayTempData(double tmpData, const std::string &name) {
@@ -174,5 +163,29 @@ void ImuDriver::displayDecodeData(double *tmpData, const std::string &name) {
     }
 }
 
+bool ImuDriver::validateChecksum(unsigned char *data) {
+    unsigned char checkSum = data[22];
+    unsigned char sum = 0;
+    unsigned char rev_sum = 0;
 
-}   // end of ns LinesTech
+    for (int k = 2; k < VALID_DATA_SIZE - 1; ++k)
+        sum = sum + data[k];
+    rev_sum = ~sum;
+    total_count++;
+
+    if (rev_sum == checkSum) {
+        ROS_INFO("imu data validated.");
+        return true;
+    } else {
+        ROS_INFO("imu data invalid. re-loop.");
+        loss_count++;
+        return false;
+    }
+
+//    return false;
+
+}
+
+//////////////////////////////////////////
+
+}// end of ns LinesTech
