@@ -1,0 +1,7 @@
+<launch>
+    <!-- launch imu driver node -->
+    <node pkg="lines354_pkg" type="ImuTestLinesTech" name="linesTech_imu_node" output="screen" required="true"/>
+
+    <!-- launch rviz -->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find lines354_pkg)/rviz/lines354.rviz"/>
+</launch>
