@@ -12,6 +12,13 @@ find_package(catkin REQUIRED COMPONENTS
         rospy
         std_msgs
         message_generation  # 需要加入 message_generation,必须有 std_msgs
+
+        geometry_msgs       # demo_06 tf static
+        tf2                 # demo_06 tf static
+        tf2_ros             # demo_06 tf static
+        tf2_geometry_msgs   # demo_06 tf static
+
+        turtlesim           # demo_07 tf dynamic
         )
 
 ## System dependencies are found with CMake's conventions
@@ -216,6 +223,25 @@ add_executable(demo_05_use_haha
         src/demo_05_use_haha.cpp
         )
 
+## demo_06: tf static talker
+add_executable(demo_06_tf_static_talker
+        src/demo_06_tf_static_talker_node.cpp)
+
+## demo_06: tf static listener
+add_executable(demo_06_tf_static_listener
+        src/demo_06_tf_static_listener_node.cpp)
+
+## demo_07: tf dynamic talker
+add_executable(demo_07_tf_dynamic_talker
+        src/demo_07_tf_dynamic_talker_node.cpp
+        )
+
+## demo_07: tf dynamic listener
+add_executable(demo_07_tf_dynamic_listener
+        src/demo_07_tf_dynamic_listener_node.cpp
+        )
+
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -320,6 +346,26 @@ target_link_libraries(haha_head
 ## demo_05: use haha
 target_link_libraries(demo_05_use_haha
         haha_head
+        ${catkin_LIBRARIES}
+        )
+
+## demo_06: tf talker
+target_link_libraries(demo_06_tf_static_talker
+        ${catkin_LIBRARIES}
+        )
+
+## demo_06: tf listener
+target_link_libraries(demo_06_tf_static_listener
+        ${catkin_LIBRARIES}
+        )
+
+## demo_07: tf dynamic talker
+target_link_libraries(demo_07_tf_dynamic_talker
+        ${catkin_LIBRARIES}
+        )
+
+## demo_07: tf dynamic listener
+target_link_libraries(demo_07_tf_dynamic_listener
         ${catkin_LIBRARIES}
         )
 
