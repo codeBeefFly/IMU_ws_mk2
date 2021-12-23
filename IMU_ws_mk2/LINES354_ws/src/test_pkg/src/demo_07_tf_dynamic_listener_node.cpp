@@ -2,7 +2,7 @@
 // Created by ds18 on 12/21/21.
 //
 
-//1.包含头文件
+// 1.包含头文件
 #include "ros/ros.h"
 #include "tf2_ros/transform_listener.h"
 #include "tf2_ros/buffer.h"
@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
         point_laser.header.frame_id = "turtle1";
         point_laser.header.stamp = ros::Time();
         point_laser.point.x = 1;
-        point_laser.point.y = 1;
+        point_laser.point.y = 2;
         point_laser.point.z = 0;
 
         // 5.转换坐标点(相对于父级坐标系)

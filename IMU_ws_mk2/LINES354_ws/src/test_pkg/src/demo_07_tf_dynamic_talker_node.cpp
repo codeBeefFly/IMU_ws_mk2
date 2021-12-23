@@ -33,8 +33,10 @@
 #include "tf2/LinearMath/Quaternion.h"
 
 void doPose(const turtlesim::Pose::ConstPtr &pose) {
-    //  5-1.创建 TF 广播器
 
+    ROS_INFO("Processing Pose values...");
+
+    //  5-1.创建 TF 广播器
     static tf2_ros::TransformBroadcaster broadcaster;
 
     //  5-2.创建 广播的数据(通过 pose 设置)
@@ -78,7 +80,9 @@ int main(int argc, char *argv[]) {
     // 订阅的 topic：/turtle1/pose 是由 /turtlesim 发布的（龟龟模拟器）
     ros::Subscriber sub = nh.subscribe<turtlesim::Pose>("/turtle1/pose", 1000, doPose);
 
+    ROS_INFO("Before spin...");
     // 6.spin
     ros::spin();
+    ROS_INFO("After spin...");
     return 0;
 }
