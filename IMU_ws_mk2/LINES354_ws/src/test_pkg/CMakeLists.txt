@@ -241,6 +241,11 @@ add_executable(demo_07_tf_dynamic_listener
         src/demo_07_tf_dynamic_listener_node.cpp
         )
 
+## demo_08: tf multi listener
+add_executable(demo_08_tf_multi_listener
+        src/demo_08_tf_multi_sub.cpp
+        )
+
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -366,6 +371,11 @@ target_link_libraries(demo_07_tf_dynamic_talker
 
 ## demo_07: tf dynamic listener
 target_link_libraries(demo_07_tf_dynamic_listener
+        ${catkin_LIBRARIES}
+        )
+
+## demo_08: tf multi listener
+target_link_libraries(demo_08_tf_multi_listener
         ${catkin_LIBRARIES}
         )
 

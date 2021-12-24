@@ -1,0 +1,18 @@
+<launch>
+
+    <!-- talker/publisher -->
+
+    <!--x, y, z, r, p, y-->
+    <node pkg="tf2_ros" type="static_transform_publisher" name="demo_08_son1"
+          args="0.2 0.8 0.3 0 0 0 /world /son1"
+          output="screen"/>
+
+    <node pkg="tf2_ros" type="static_transform_publisher" name="demo_08_son2"
+          args="0.5 0 0 0 0 0 /world /son2"
+          output="screen"/>
+
+    <!-- listener/subscriber -->
+    <node pkg="test_pkg" type="demo_08_tf_multi_listener" name="demo_08_listener_sub_frames_node"
+          output="screen"/>
+
+</launch>
