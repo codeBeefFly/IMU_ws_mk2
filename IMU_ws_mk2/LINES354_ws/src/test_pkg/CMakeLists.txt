@@ -247,6 +247,22 @@ add_executable(demo_08_tf_multi_listener
         )
 
 
+## demo_09: tf practice turtleSpawn
+add_executable(demo_09_tf_practice_turtleSpawn
+        src/demo_09_tf_practice_turtleSpawn.cpp
+        )
+
+## demo_09: tf practice talker: pub tf
+add_executable(demo_09_tf_practice_pub_tf
+        src/demo_09_tf_practice_talker.cpp
+        )
+
+## demo_09: tf practice listener
+add_executable(demo_09_tf_practice_listener
+        src/demo_09_tf_practice_listener.cpp
+        )
+
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -376,6 +392,21 @@ target_link_libraries(demo_07_tf_dynamic_listener
 
 ## demo_08: tf multi listener
 target_link_libraries(demo_08_tf_multi_listener
+        ${catkin_LIBRARIES}
+        )
+
+## demo_09: tf practice turtleSpawn
+target_link_libraries(demo_09_tf_practice_turtleSpawn
+        ${catkin_LIBRARIES}
+        )
+
+## demo_09: tf practice pub tf
+target_link_libraries(demo_09_tf_practice_pub_tf
+        ${catkin_LIBRARIES}
+        )
+
+## demo_09: tf practice listener
+target_link_libraries(demo_09_tf_practice_listener
         ${catkin_LIBRARIES}
         )
 
