@@ -10,12 +10,12 @@
 
     <!-- run double times talker node -->
     <node pkg="test_pkg" type="demo_09_tf_practice_pub_tf" name="demo_09_pub_tf_turtle_1"
-          output="screen" args="turtle_1"/>
+          output="screen" args="turtle1"/>
 
     <node pkg="test_pkg" type="demo_09_tf_practice_pub_tf" name="demo_09_pub_tf_turtle_2"
-          output="screen" args="turtle_2"/>
+          output="screen" args="turtle2"/>
 
     <!-- run listener node -->
-<!--    <node pkg="test_pkg" type="demo_09_tf_practice_listener" name="demo_09_listener" output="screen"/>-->
+    <node pkg="test_pkg" type="demo_09_tf_practice_listener" name="demo_09_listener" output="screen"/>
 
 </launch>

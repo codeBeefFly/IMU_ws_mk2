@@ -36,6 +36,9 @@ std::string turtle_name;
 
 void doPose(const turtlesim::Pose::ConstPtr &pose) {
 
+    ROS_DEBUG("**** in doPose...");
+//    ROS_INFO("**** in doPose...");
+
     //  6-1.创建 TF 广播器 ---------------注意 static
     static tf2_ros::TransformBroadcaster broadcaster;
     //  6-2.将 pose 信息转换成 TransFormStamped
@@ -76,13 +79,10 @@ int main(int argc, char *argv[]) {
     ros::NodeHandle nh;
 
     // 5.创建订阅对象
+//    std::cout << "**** " << turtle_name + "/pose" << std::endl;
+    ROS_INFO("topic name: %s: ", (turtle_name + "/pose").c_str());
     ros::Subscriber sub = nh.subscribe<turtlesim::Pose>(turtle_name + "/pose", 1000, doPose);
 
-    // 6.回调函数处理订阅的 pose 信息
-    //   6-1.创建 TF 广播器
-    //   6-2.将 pose 信息转换成 TransFormStamped
-    //   6-3.发布
-    // 7.spin
     ros::spin();
     return 0;
 }

@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
     while (ros::ok()) {
         try {
             //5-1.先获取 turtle1 相对 turtle2 的坐标信息
-            geometry_msgs::TransformStamped tfs = buffer.lookupTransform("turtle_2", "turtle_1", ros::Time(0));
+            geometry_msgs::TransformStamped tfs = buffer.lookupTransform("turtle2", "turtle1", ros::Time(0));
 
             //5-2.根据坐标信息生成速度信息 -- geometry_msgs/Twist.h
             geometry_msgs::Twist twist;
