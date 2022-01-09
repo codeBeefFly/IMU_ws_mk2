@@ -59,7 +59,6 @@ int main(int argc, char *argv[]) {
             ROS_INFO("错误提示: %s", e.what());
         }
 
-
         rate.sleep();
         // 6.spin
         ros::spinOnce();

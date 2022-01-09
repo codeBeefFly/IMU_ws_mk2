@@ -75,6 +75,11 @@ int main(int argc, char *argv[]) {
         ROS_INFO("乌龟 %s 坐标发送启动", turtle_name.c_str());
     }
 
+    ROS_INFO("argc: %d ", argc);
+    ROS_INFO("argv[0]: %s", argv[0]);
+    ROS_INFO("argv[1]: %s", argv[1]);
+
+
     // 4.创建 ros 句柄
     ros::NodeHandle nh;
 

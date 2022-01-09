@@ -19,6 +19,8 @@ find_package(catkin REQUIRED COMPONENTS
         tf2_geometry_msgs   # demo_06 tf static
 
         turtlesim           # demo_07 tf dynamic
+
+        rosbag              # demo_chp05 rosbag
         )
 
 ## System dependencies are found with CMake's conventions
@@ -262,6 +264,14 @@ add_executable(demo_09_tf_practice_listener
         src/demo_09_tf_practice_listener.cpp
         )
 
+## demo_chp_05 rosbag
+add_executable(demo_chp05_rosbag_write
+        src/demo_chp05_rosbag_write.cpp
+        )
+
+add_executable(demo_chp05_rosbag_read
+        src/demo_chp05_rosbag_read.cpp
+        )
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -407,6 +417,15 @@ target_link_libraries(demo_09_tf_practice_pub_tf
 
 ## demo_09: tf practice listener
 target_link_libraries(demo_09_tf_practice_listener
+        ${catkin_LIBRARIES}
+        )
+
+## demo_chp_05 rosbag
+target_link_libraries(demo_chp05_rosbag_write
+        ${catkin_LIBRARIES}
+        )
+
+target_link_libraries(demo_chp05_rosbag_read
         ${catkin_LIBRARIES}
         )
 
