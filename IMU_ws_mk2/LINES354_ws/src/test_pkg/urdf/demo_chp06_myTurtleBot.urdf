@@ -1,0 +1,141 @@
+<robot name="MyTurtleBot">
+
+    <!-- * * * * * * * * * * * *  101, structure supporting point base_footprint * * * * * * * * * * * *  -->
+    <link name="base_footprint">
+        <visual>
+            <geometry>
+                <!-- this point is just for indication -->
+                <sphere radius="0.001"/>
+            </geometry>
+        </visual>
+    </link>
+
+
+    <!-- * * * * * * * * * * * *  define all links * * * * * * * * * * * *  -->
+
+    <!--
+        base_link:
+            radius: 10  cm   0.1  m
+            length: 8   cm   0.08 m
+            height: 1.5 cm   0.15 m
+    -->
+
+    <!-- base_link: cylinder chassis -->
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <cylinder radius="0.1" length="0.08"/> <!-- unit: 1m -->
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="yellow">
+                <color rgba="0.8 0.3 0.1 0.5"/>
+            </material>
+        </visual>
+    </link>
+
+    <!--
+        xxx_wheel_link:
+            radius: 3.25  cm   0.0325  m
+            length: 1.5   cm   0.015   m
+            color:  black
+    -->
+
+    <!-- link: left wheel -->
+    <link name="left_wheel_link">
+        <visual>
+            <geometry>
+                <cylinder radius="0.0325" length="0.015"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="1.5705 0 0"/> <!-- right-hand anti-clockwise is + -->
+            <material name="black">
+                <color rgba="0.0 0.0 0.0 1.0"/>
+            </material>
+        </visual>
+    </link>
+
+    <!-- link: right wheel -->
+    <link name="right_wheel_link">
+        <visual>
+            <geometry>
+                <cylinder radius="0.0325" length="0.015"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="1.5705 0 0"/>
+            <material name="black">
+                <color rgba="0.0 0.0 0.0 1.0"/>
+            </material>
+        </visual>
+    </link>
+
+    <!--
+       xxx_universal_wheel_link:
+           radius: 0.75  cm   0.00075  m
+           color:  black
+    -->
+    <!-- link: front_universal_wheel -->
+    <link name="front_universal_wheel_link">
+        <visual>
+            <geometry>
+                <sphere radius="0.0075"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="black">
+                <color rgba="0.0 0.0 0.0 1.0"/>
+            </material>
+        </visual>
+    </link>
+
+    <!-- link: rear_universal_wheel -->
+    <link name="rear_universal_wheel_link">
+        <visual>
+            <geometry>
+                <sphere radius="0.0075"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="black">
+                <color rgba="0.0 0.0 0.0 1.0"/>
+            </material>
+        </visual>
+    </link>
+
+    <!-- * * * * * * * * * * * *  define all joints (child2parent) * * * * * * * * * * * *  -->
+
+    <!-- base_link_2_base_footprint -->
+    <joint name="base_link_2_base_footprint" type="fixed">
+        <parent link="base_footprint" />
+        <child link="base_link" />
+        <origin xyz="0 0 0.055" />
+    </joint>
+
+    <!-- left_wheel_link_2_base_link-->
+    <joint name="left_wheel_link_2_base_link" type="continuous">
+        <parent link="base_link" />
+        <child link="left_wheel_link" />
+        <origin xyz="0 0.1 -0.0225" />
+        <axis xyz="0 1 0" />
+    </joint>
+
+    <!-- right_wheel_link_2_base_link-->
+    <joint name="right_wheelj_link_2_base_link" type="continuous">
+        <parent link="base_link" />
+        <child link="right_wheel_link" />
+        <origin xyz="0 -0.1 -0.0225" />
+        <axis xyz="0 1 0" />
+    </joint>
+
+    <!-- front_universal_wheel_2_base_link-->
+    <joint name="front_universal_wheel_2_base_link" type="continuous">
+        <parent link="base_link" />
+        <child link="front_universal_wheel_link" />
+        <origin xyz="0.0925 0 -0.0475" />
+        <axis xyz="1 1 1" />
+    </joint>
+
+    <!-- rear_universal_wheel_2_base_link-->
+    <joint name="rear_universal_wheel_2_base_link" type="continuous">
+        <parent link="base_link" />
+        <child link="rear_universal_wheel_link" />
+        <origin xyz="-0.0925 0 -0.0475" />
+        <axis xyz="1 1 1" />
+    </joint>
+
+</robot>
