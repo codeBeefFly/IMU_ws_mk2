@@ -1,0 +1,23 @@
+<launch>
+
+    <!-- add urdf file to parameter server -->
+    <param name="robot_description" command="$(find xacro)/xacro $(find test_pkg)/urdf/demo_chp06_myTurtleBot.xacro"/>
+
+    <!-- run rviz -->
+
+<!--    <node pkg="rviz" type="rviz" name="rviz"/>-->
+
+    <node pkg="rviz" type="rviz" name="rviz"
+          args="-d $(find test_pkg)/rviz/demo_chp06_myTurtleBot.rviz"/>
+
+    <!-- run joint state publisher, necessary -->
+    <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher"/>
+
+    <!-- run robot state publisher -->
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher"/>
+
+    <!-- for debug purpose -->
+    <!-- it is a repetition of joint_state_publisher_gui, comment it out otherwise will cause jittering -->
+    <node pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" name="joint_state_publisher_gui"/>
+
+</launch>
