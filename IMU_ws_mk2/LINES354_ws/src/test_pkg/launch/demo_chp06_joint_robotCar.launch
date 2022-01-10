@@ -11,7 +11,8 @@
           args="-d $(find test_pkg)/rviz/demo_chp06_joint_robotCar.rviz"/>
 
     <!--  -->
-    <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" />
+    <!-- it is a repetition of joint_state_publisher_gui, comment it out otherwise will cause jittering -->
+<!--    <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" />-->
 
     <!--  -->
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" />
