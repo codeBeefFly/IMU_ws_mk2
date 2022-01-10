@@ -57,7 +57,8 @@
             </visual>
         </link>
 
-        <joint name="${name}_wheel2base_link" type="continuous">
+<!--        <joint name="${name}_wheel2base_link" type="continuous">-->
+        <joint name="base_${name}_wheel_joint" type="continuous">
             <parent link="base_link"/>
             <child link="${name}_wheel"/>
             <origin xyz="0 ${flag * base_link_radius} ${ -(ground_clearance + base_link_length / 2 - wheel_radius) }"/>
@@ -66,9 +67,10 @@
 
     </xacro:macro>
 
-    <xacro:add_wheel name="left" flag="1"/>
-    <xacro:add_wheel name="right" flag="-1"/>
-
+<!--    <xacro:add_wheel name="left" flag="1"/>-->
+<!--    <xacro:add_wheel name="right" flag="-1"/>-->
+    <xacro:add_wheel name="l" flag="1"/>
+    <xacro:add_wheel name="r" flag="-1"/>
 
     <!-- * * * * * * * * * universal wheels * * * * * * * * * -->
 
