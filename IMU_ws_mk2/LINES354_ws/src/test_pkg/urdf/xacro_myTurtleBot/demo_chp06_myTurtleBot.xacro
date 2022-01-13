@@ -1,4 +1,4 @@
-<robot name="my_car_camera" xmlns:xacro="http://wiki.ros.org/xacro">
+<robot name="MyTurtleBot" xmlns:xacro="http://wiki.ros.org/xacro">
     <xacro:include filename="demo_chp06_myTurtleBot_chassis.xacro" />
     <xacro:include filename="demo_chp06_myTurtleBot_camera.xacro" />
     <xacro:include filename="demo_chp06_myTurtleBot_laser.xacro" />
