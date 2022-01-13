@@ -1,0 +1,7 @@
+<launch>
+    <param name="robot_description" command="$(find xacro)/xacro $(find test_pkg)/urdf/xacro_gazebo_myTurtleBot/demo_chp066_myTurtleBot.xacro" />
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch" />
+
+    <node pkg="gazebo_ros" type="spawn_model" name="model" args="-urdf -model MyTurtleBot -param robot_description"  />
+</launch>
