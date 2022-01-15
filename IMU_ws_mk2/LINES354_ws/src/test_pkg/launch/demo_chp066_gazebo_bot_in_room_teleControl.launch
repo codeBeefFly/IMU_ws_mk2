@@ -11,8 +11,14 @@
     <node pkg="rviz" type="rviz" name="rviz"
           args="-d $(find test_pkg)/rviz/demo_chp06_myTurtleBot_arbotix.rviz"/>
 
+    <!-- need to publish joint & robot state -->
     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
+    <!-- run teleport_key -->
+    <node pkg="test_pkg" name="MyTurtleBot_key" type="teleport_key_py.py" output="screen">
+        <!-- MyTurtleBot_telop publish topic from ~cmd_vel to /cmd_vel -->
+<!--        <remap from="/cmd_vel" to="/cmd_vel"/>-->
+    </node>
 
 </launch>
