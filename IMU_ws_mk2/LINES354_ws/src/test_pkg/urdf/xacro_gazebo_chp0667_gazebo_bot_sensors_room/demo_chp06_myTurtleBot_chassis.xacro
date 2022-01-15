@@ -1,0 +1,103 @@
+<robot name="MyTurtleBot_chassis" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <material name="black">
+        <color rgba="0.0 0.0 0.0 0.8"/>
+    </material>
+    <material name="yellow">
+        <color rgba="0.5 0.3 0.0 0.8"/>
+    </material>
+
+    <!-- * * * * * * * * * chassis * * * * * * * * * -->
+
+    <xacro:property name="PI" value="3.141"/>
+    <xacro:property name="base_footprint_radius" value="0.001"/>
+    <xacro:property name="base_link_radius" value="0.1"/>
+    <xacro:property name="base_link_length" value="0.08"/>
+    <xacro:property name="ground_clearance" value="0.015"/>
+
+    <link name="base_footprint">
+        <visual>
+            <geometry>
+                <sphere radius="${base_footprint_radius}"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <cylinder radius="${base_link_radius}" length="${base_link_length}"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="yellow"/>
+        </visual>
+    </link>
+
+    <joint name="base_link2base_footprint" type="fixed">
+        <parent link="base_footprint"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 ${ ground_clearance + base_link_length / 2 }"/>
+    </joint>
+
+
+    <!-- * * * * * * * * * driving wheels * * * * * * * * * -->
+
+    <xacro:property name="wheel_radius" value="0.0325"/>
+    <xacro:property name="wheel_length" value="0.015"/>
+
+    <xacro:macro name="add_wheel" params="name flag">
+
+        <link name="${name}_wheel">
+            <visual>
+                <geometry>
+                    <cylinder radius="${wheel_radius}" length="${wheel_length}"/>
+                </geometry>
+                <origin xyz="0.0 0.0 0.0" rpy="${PI / 2} 0.0 0.0"/>
+                <material name="black"/>
+            </visual>
+        </link>
+
+<!--        <joint name="${name}_wheel2base_link" type="continuous">-->
+        <joint name="base_${name}_wheel_joint" type="continuous">
+            <parent link="base_link"/>
+            <child link="${name}_wheel"/>
+            <origin xyz="0 ${flag * base_link_radius} ${ -(ground_clearance + base_link_length / 2 - wheel_radius) }"/>
+            <axis xyz="0 1 0"/>
+        </joint>
+
+    </xacro:macro>
+
+<!--    <xacro:add_wheel name="left" flag="1"/>-->
+<!--    <xacro:add_wheel name="right" flag="-1"/>-->
+    <xacro:add_wheel name="l" flag="1"/>
+    <xacro:add_wheel name="r" flag="-1"/>
+
+    <!-- * * * * * * * * * universal wheels * * * * * * * * * -->
+
+    <xacro:property name="universal_wheel_radius" value="0.0075"/>
+
+    <xacro:macro name="add_universal_wheel" params="name flag">
+
+        <link name="${name}_wheel">
+            <visual>
+                <geometry>
+                    <sphere radius="${universal_wheel_radius}"/>
+                </geometry>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <material name="black"/>
+            </visual>
+        </link>
+
+        <joint name="${name}_wheel2base_link" type="continuous">
+            <parent link="base_link"/>
+            <child link="${name}_wheel"/>
+            <origin xyz="${ flag * (base_link_radius - universal_wheel_radius) } 0 ${ -(base_link_length / 2 + ground_clearance / 2) }"/>
+            <axis xyz="1 1 1"/>
+        </joint>
+
+    </xacro:macro>
+
+    <xacro:add_universal_wheel name="front" flag="1" />
+    <xacro:add_universal_wheel name="rear" flag="-1" />
+
+</robot>
