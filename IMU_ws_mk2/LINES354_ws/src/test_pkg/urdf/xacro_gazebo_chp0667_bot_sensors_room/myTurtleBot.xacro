@@ -11,6 +11,6 @@
     <!-- simulated sensors -->
     <xacro:include filename="sensor_laser.xacro"/>
     <xacro:include filename="sensor_camera.xacro"/>
-
+    <xacro:include filename="sensor_kinect.xacro"/>
 
 </robot>

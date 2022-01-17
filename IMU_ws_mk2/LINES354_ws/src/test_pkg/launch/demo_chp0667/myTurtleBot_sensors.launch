@@ -21,7 +21,8 @@
     <node pkg="robot_state_publisher" name="robot_state_publisher" type="robot_state_publisher"/>
 
     <!-- tele-control -->
-    <node pkg="test_pkg" name="MyTurtleBot_key" type="teleport_key_py.py" output="screen">
+    <node pkg="test_pkg" name="MyTurtleBot_key" type="teleport_key_py.py" output="screen"
+          launch-prefix="gnome-terminal --command">
     </node>
 
 </launch>
