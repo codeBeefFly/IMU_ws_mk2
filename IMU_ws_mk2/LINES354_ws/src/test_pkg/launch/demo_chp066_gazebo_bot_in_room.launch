@@ -1,6 +1,7 @@
 <launch>
 
-    <param name="robot_description" command="$(find xacro)/xacro $(find test_pkg)/urdf/xacro_gazebo_bot_in_room/demo_chp066_myTurtleBot.xacro" />
+    <param name="robot_description" command="$(find xacro)/xacro $(find test_pkg)/urdf/xacro_gazebo_chp0667_bot_sensors_room/myTurtleBot.xacro"/>
+<!--    <param name="robot_description" command="$(find xacro)/xacro $(find test_pkg)/urdf/xacro_gazebo_bot_in_room/demo_chp066_myTurtleBot.xacro" />-->
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="world_name" value="$(find test_pkg)/world/room_15x8/room_15x8.world" />

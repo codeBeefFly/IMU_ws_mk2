@@ -1,0 +1,27 @@
+<launch>
+
+    <!-- define robot model from parameter sever: robot_description -->
+    <param name="robot_description" command="$(find xacro)/xacro $(find test_pkg)/urdf/xacro_gazebo_chp0667_bot_sensors_room/myTurtleBot.xacro"/>
+<!--    <param name="robot_description" command="$(find xacro)/xacro $(find test_pkg)/urdf/xacro_gazebo_bot_in_room/demo_chp066_myTurtleBot.xacro" />-->
+
+    <!-- load gazebo world -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find test_pkg)/world/room_15x8/room_15x8.world"/>
+    </include>
+
+    <!-- load robot model in gazebo -->
+    <node pkg="gazebo_ros" name="model" type="spawn_model" args="-urdf -model MyTurtleBot -param robot_description"/>
+
+    <!-- launch rviz -->
+    <node pkg="rviz" name="rviz" type="rviz"
+          args="-d $(find test_pkg)/rviz/demo_chp0667_myTurtleBot_sensors.rviz"/>
+
+    <!-- publish joint state and robot state -->
+    <node pkg="joint_state_publisher" name="joint_state_publisher" type="joint_state_publisher"/>
+    <node pkg="robot_state_publisher" name="robot_state_publisher" type="robot_state_publisher"/>
+
+    <!-- tele-control -->
+    <node pkg="test_pkg" name="MyTurtleBot_key" type="teleport_key_py.py" output="screen">
+    </node>
+
+</launch>

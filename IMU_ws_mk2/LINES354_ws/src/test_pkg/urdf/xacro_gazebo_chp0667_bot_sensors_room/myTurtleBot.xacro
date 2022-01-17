@@ -1,0 +1,16 @@
+<robot name="MyTurtleBot" xmlns:xacro="http://wiki.ros.org/xacro">
+
+    <!-- physical components -->
+    <xacro:include filename="myTurtleBot_component.xacro"/>
+    <xacro:include filename="myTurtleBot_chassis.xacro"/>
+    <xacro:include filename="myTurtleBot_camera.xacro"/>
+    <xacro:include filename="myTurtleBot_laser.xacro"/>
+    <xacro:include filename="myTurtleBot_move.xacro"/>
+    <xacro:include filename="myTurtleBot_kinect.xacro"/>
+
+    <!-- simulated sensors -->
+    <xacro:include filename="sensor_laser.xacro"/>
+    <xacro:include filename="sensor_camera.xacro"/>
+
+
+</robot>

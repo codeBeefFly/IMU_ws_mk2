@@ -2,11 +2,6 @@
 
     <xacro:property name="file_path" value="$(find test_pkg)/urdf/xacro_gazebo_myTurtleBot"/>
 
-<!--    <xacro:include filename="${file_path}/demo_chp066_myTurtleBot_component.xacro" />-->
-<!--    <xacro:include filename="${file_path}/demo_chp066_myTurtleBot_chassis.xacro" />-->
-<!--    <xacro:include filename="${file_path}/demo_chp066_myTurtleBot_camera.xacro" />-->
-<!--    <xacro:include filename="${file_path}/demo_chp066_myTurtleBot_laser.xacro" />-->
-
     <xacro:include filename="$(find test_pkg)/urdf/xacro_gazebo_myTurtleBot/demo_chp066_myTurtleBot_component.xacro" />
     <xacro:include filename="$(find test_pkg)/urdf/xacro_gazebo_myTurtleBot/demo_chp066_myTurtleBot_chassis.xacro" />
     <xacro:include filename="$(find test_pkg)/urdf/xacro_gazebo_myTurtleBot/demo_chp066_myTurtleBot_camera.xacro" />
